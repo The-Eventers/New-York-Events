@@ -10,3 +10,37 @@
 //8. Allow user to save events into a variable called "myEvents"
 	//8A. Save user's events in an array that is displayed in a modal by clicking on "My Events" in top right corner of nav bar
 	//8B. Allow user to select events from their list of saved events to print off/email information about (format print versions)
+
+
+var app = {};
+
+
+
+app.getInfo = function() {
+	$.ajax({
+		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
+		type: 'GET',
+		dataType: 'jsonp',
+	    data: {
+	      'api-key': 'c8592a2f201f8cc3fb4732100b74523e:1:71357838',
+	      'facets': 1,
+	      // 'filters': 'category:theater,borough:Manhattan',
+	      'limit': 9,
+	      'date_range': '2015-08-05' + ':' + '2015-08-10'
+	  },
+	  	success: function (res) {
+			console.log(res);
+		}
+	});
+};
+
+
+
+
+
+$(function () {
+	// app.init();
+});
+
+
+
