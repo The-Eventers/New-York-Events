@@ -24,7 +24,7 @@ app.init = function () {
     });
 	$('.submit-date').on('submit', function (e) {
 		e.preventDefault();
-		var dateRange = $('.start-date').datepicker('getDate') + ':' + $('.end-date').datepicker('getDate');
+		var dateRange = $('.start-date').datepicker({ dateFormat: 'yy-mm-dd' }) + ':' + $('.end-date').datepicker('getDate');
 		app.getInfo(dateRange);
 
 	});
