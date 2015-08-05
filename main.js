@@ -1,5 +1,4 @@
-//1. document.ready function
-//2. init function
+
 //3. inside init --> when user clicks on submit: prevent default,  store values for both dates as 2 different variables to be used for date_range & scroll page down to the next input section (with map)
 //4. when user clicks on search after filling in 2nd input form: store user inputs in variables (neighborhoods, activities, other paramaters (i.e. kid-friendly, free etc.) - also have option for 'any' in neighborhoods)
 //5. use all user input values in ajax request 
@@ -18,20 +17,17 @@ var app = {};
 app.init = function () {
 
 	$('.datepicker').each(function () {
-    	$(this).datepicker({
-    		dateFormat: 'yy-mm-dd'
-    	});
+    	$(this).datepicker();
     });
-	$('.submit-date').on('submit', function (e) {
+	$('form').on('submit', function (e) {
 		e.preventDefault();
-		var dateRange = $('.start-date').datepicker('getDate') + ':' + $('.end-date').datepicker('getDate');
+		var startDate = $('.start-date').datepicker('getDate');
+		var endDate = $('.end-date').datepicker('getDate');
+		var dateRange = moment(startDate).format('YYYY-MM-DD') + ':' + moment(endDate).format('YYYY-MM-DD');
+		console.log(dateRange);
 		app.getInfo(dateRange);
-
 	});
-
-
-}
-
+};
 
 app.getInfo = function(dateRange) {
 	$.ajax({
