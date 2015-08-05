@@ -15,8 +15,25 @@
 var app = {};
 
 
+app.init = function () {
 
-app.getInfo = function() {
+	$('.datepicker').each(function () {
+    	$(this).datepicker({
+    		dateFormat: 'yy-mm-dd'
+    	});
+    });
+	$('.submit-date').on('submit', function (e) {
+		e.preventDefault();
+		var dateRange = $('.start-date').datepicker('getDate') + ':' + $('.end-date').datepicker('getDate');
+		app.getInfo(dateRange);
+
+	});
+
+
+}
+
+
+app.getInfo = function(dateRange) {
 	$.ajax({
 		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
 		type: 'GET',
@@ -24,9 +41,8 @@ app.getInfo = function() {
 	    data: {
 	      'api-key': 'c8592a2f201f8cc3fb4732100b74523e:1:71357838',
 	      'facets': 1,
-	      // 'filters': 'category:theater,borough:Manhattan',
-	      'limit': 9,
-	      'date_range': '2015-08-05' + ':' + '2015-08-10'
+	      'limit': 20,
+	      'date_range': dateRange
 	  },
 	  	success: function (res) {
 			console.log(res);
@@ -39,7 +55,7 @@ app.getInfo = function() {
 
 
 $(function () {
-	// app.init();
+	app.init();
 });
 
 
