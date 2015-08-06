@@ -32,7 +32,7 @@ app.init = function () {
 
 app.getInfo = function(dateRange) {
 	$.ajax({
-		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?&filters=category:Dance,borough:Manhattan',
+		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?&filters=neighborhood: (Chelsea "Greenwhich Village" SoHo TriBeCa NoHo)',
 		type: 'GET',
 		dataType: 'jsonp',
 	    data: {
@@ -46,6 +46,7 @@ app.getInfo = function(dateRange) {
 		}
 	});
 };
+
 
 
 
