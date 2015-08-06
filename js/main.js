@@ -14,7 +14,6 @@
 var app = {};
 app.neighborhood = '';
 app.category = '';
-app.subcategory = '';
 
 
 app.init = function () {
@@ -29,31 +28,24 @@ app.init = function () {
 		    console.log(app.neighborhood);
 		  });
 		$('.category-question input[type=checkbox]:checked').each(function() {
-			if ($(this).hasClass('subcategory')) { //if option selected is a subcategory (museums or events) then store that value as subcategory
-				app.subcategory = app.subcategory + ' ' + $(this).val();
-			} else if ($(this).hasClass('category')) { //if option selected is a category (comedy, art, theater) then store that value as category
-				app.category = app.category + ' ' + $(this).val();
-			}
+			app.category = app.category + ' ' + $(this).val();
 			console.log(app.category);
-			console.log(app.subcategory);
 		});
 		var startDate = $('.start-date').datepicker('getDate');
 		var endDate = $('.end-date').datepicker('getDate');
 		var dateRange = moment(startDate).format('YYYY-MM-DD') + ':' + moment(endDate).format('YYYY-MM-DD');
 		console.log(dateRange);
-		app.getInfo(dateRange, app.category, app.subcategory, app.neighborhood);
+		app.getInfo(dateRange, app.category, app.neighborhood);
 	});
 };
 
 L.mapbox.accessToken = 'pk.eyJ1Ijoiam9hbm5hc3RlY2V3aWN6IiwiYSI6IjIzNmNhNjJmNzgxMjhkMzI3M2ZhYjU2Yjk1YmNlZWZmIn0.rA-ceyz6zzzlwCw0Hv0CMQ';
-	var map = L.mapbox.map('map', 'mapbox.emerald')
-	   .setView([40.7, -74.0], 11);
-	   map.scrollWheelZoom.disable();
+    var map = L.mapbox.map('map', 'mapbox.emerald')
+       .setView([40.7, -74.0], 11);
+       map.scrollWheelZoom.disable();
 
 
-
-
-app.getInfo = function(dateRange, category, subcategory, neighborhood) {
+app.getInfo = function(dateRange, category, neighborhood) {
 	$.ajax({
 		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
 		type: 'GET',
@@ -61,7 +53,7 @@ app.getInfo = function(dateRange, category, subcategory, neighborhood) {
 	    data: {
 	      'api-key': 'e6a25b3f20881562c56e3247ecd6335d:3:72623857',
 	      'facets': 1,
-	      'filters': 'category:' + app.category + ',subcategory:' + app.subcategory + ',neighborhood:' + app.neighborhood,
+	      'filters': 'category:' + app.category + ',neighborhood:' + app.neighborhood,
 	      'limit': 20,
 	      'date_range': dateRange
 	  },
@@ -69,7 +61,11 @@ app.getInfo = function(dateRange, category, subcategory, neighborhood) {
 			console.log(res);
 		}
 	});
+};
 
+
+app.displayResults = function() {
+	
 
 };
 

@@ -59,8 +59,9 @@ header {
 }
 
 #map {
-	width: 50%;
-	height: 100vh;
-	float: right;
+    width: 40%;
+    height: 100vh;
+    float: right;
+
 }
 
