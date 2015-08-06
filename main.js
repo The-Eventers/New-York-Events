@@ -32,7 +32,7 @@ app.init = function () {
 
 app.getInfo = function(dateRange) {
 	$.ajax({
-		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
+		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?&filters=category:Dance,borough:Manhattan',
 		type: 'GET',
 		dataType: 'jsonp',
 	    data: {
