@@ -12,6 +12,9 @@
 
 
 var app = {};
+app.neighborhood = '';
+app.category = '';
+app.subcategory = '';
 
 
 app.init = function () {
@@ -21,15 +24,29 @@ app.init = function () {
     });
 	$('form').on('submit', function (e) {
 		e.preventDefault();
+		$('.neighborhood-question input[type=checkbox]:checked').each(function(){
+		    app.neighborhood = app.neighborhood + ' ' + $(this).val();
+		    console.log(app.neighborhood);
+		  });
+		$('.category-question input[type=checkbox]:checked').each(function() {
+			if ($(this).hasClass('subcategory')) { //if option selected is a subcategory (museums or events) then store that value as subcategory
+				app.subcategory = app.subcategory + ' ' + $(this).val();
+			} else if ($(this).hasClass('category')) { //if option selected is a category (comedy, art, theater) then store that value as category
+				app.category = app.category + ' ' + $(this).val();
+			}
+			console.log(app.category);
+			console.log(app.subcategory);
+		});
 		var startDate = $('.start-date').datepicker('getDate');
 		var endDate = $('.end-date').datepicker('getDate');
 		var dateRange = moment(startDate).format('YYYY-MM-DD') + ':' + moment(endDate).format('YYYY-MM-DD');
 		console.log(dateRange);
-		app.getInfo(dateRange);
+		app.getInfo(dateRange, app.category, app.subcategory, app.neighborhood);
 	});
 };
 
-app.getInfo = function(dateRange) {
+
+app.getInfo = function(dateRange, category, subcategory, neighborhood) {
 	$.ajax({
 		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
 		type: 'GET',
@@ -37,14 +54,18 @@ app.getInfo = function(dateRange) {
 	    data: {
 	      'api-key': 'e6a25b3f20881562c56e3247ecd6335d:3:72623857',
 	      'facets': 1,
-	      'filters': 'category:Art,neighborhood:East Village',
+	      'filters': 'category:' + app.category + ',subcategory:' + app.subcategory + ',neighborhood:' + app.neighborhood,
 	      'limit': 20,
-	      'date_range': '2015-08-10' + ':' + '2015-08-25'
+	      'date_range': dateRange
 	  },
 	  	success: function (res) {
 			console.log(res);
 		}
 	});
+
+
+
+
 };
 
 

@@ -38,8 +38,8 @@ h4 {
 	text-transform: uppercase;
 }
 header {
-	background: url(https://download.unsplash.com/25/black-white-city.jpg);
-	background-position: cover;
+	/*background: linear-gradient( rgba(26, 76, 80, 0.3), rgba(26, 76, 80, 0.7)), url(https://download.unsplash.com/25/black-white-city.jpg);
+	background-position: cover;*/
 	background-repeat: no-repeat;
 	background-size: 100%;
 	width: 100%;
@@ -51,7 +51,7 @@ header {
 
 .header-content h1, h4 {
 	text-align: center;
-	color: white;
+	color: #F7FCFA;
 }
 .header-content input {
 	margin: 5% 0;
