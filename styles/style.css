@@ -183,7 +183,32 @@ header {
   width: 25%; }
 
 /*Styles for Form/Map Section*/
+.options-results {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+
 /*Form Styles*/
+.questions {
+  width: 60%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+
+.question {
+  width: 100%; }
+
+.question input[type="checkbox"] {
+  visibility: hidden; }
+
 /*Map Styles*/
 #map {
   width: 40%;
@@ -191,3 +216,14 @@ header {
   float: right; }
 
 /*Footer Styles*/
+footer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 10vh;
+  text-align: center; }

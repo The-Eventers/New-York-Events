@@ -70,7 +70,27 @@ header {
 
 /*Styles for Form/Map Section*/
 
+.options-results {
+	display: flex;
+	flex-wrap: wrap;
+}
 /*Form Styles*/
+
+.questions {
+	width: 60%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.question {
+	width: 100%
+}
+
+.question input[type="checkbox"] {
+	visibility: hidden
+}
+
+
 
 /*Map Styles*/
 
@@ -81,5 +101,12 @@ header {
 }
 
 /*Footer Styles*/
+
+footer {
+	display: flex;
+	align-items: center;
+	height: 10vh;
+	text-align: center
+}
 
 
