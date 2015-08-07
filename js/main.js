@@ -42,9 +42,8 @@ app.init = function () {
 
 L.mapbox.accessToken = 'pk.eyJ1Ijoiam9hbm5hc3RlY2V3aWN6IiwiYSI6IjIzNmNhNjJmNzgxMjhkMzI3M2ZhYjU2Yjk1YmNlZWZmIn0.rA-ceyz6zzzlwCw0Hv0CMQ';
     var map = L.mapbox.map('map', 'mapbox.emerald')
-       .setView([40.7, -74.0], 11);
+       .setView([40.73, -74.0], 13);
        map.scrollWheelZoom.disable();
-
 
 app.getInfo = function(dateRange, category, neighborhood) {
 	$.ajax({
@@ -94,8 +93,12 @@ app.displayResults = function(res) {
 			var description = $('<p>').html(value.web_description).addClass('description');
 			resultContainer.append(title, venue, address, neighborhood, description);
 			$('#results').append(resultContainer);
+			L.marker([value.geocode_latitude,value.geocode_longitude]).addTo(map).bindPopup(value.event_name + ":" + "<br>" + value.street_address);
 		});
+
+
 	};
+
 };
 
 
