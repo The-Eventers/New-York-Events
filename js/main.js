@@ -1,4 +1,5 @@
-
+//1. document.ready function
+//2. init function
 //3. inside init --> when user clicks on submit: prevent default,  store values for both dates as 2 different variables to be used for date_range & scroll page down to the next input section (with map)
 //4. when user clicks on search after filling in 2nd input form: store user inputs in variables (neighborhoods, activities, other paramaters (i.e. kid-friendly, free etc.) - also have option for 'any' in neighborhoods)
 //5. use all user input values in ajax request 
@@ -14,6 +15,7 @@
 var app = {};
 app.neighborhood = '';
 app.category = '';
+app.subcategory = '';
 
 
 app.init = function () {
@@ -28,6 +30,13 @@ app.init = function () {
 		    console.log(app.neighborhood);
 		  });
 		$('.category-question input[type=checkbox]:checked').each(function() {
+			if ($(this).hasClass('subcategory')) { //if option selected is a subcategory (museums or events) then store that value as subcategory
+				app.subcategory = app.subcategory + ' ' + $(this).val();
+			} else if ($(this).hasClass('category')) { //if option selected is a category (comedy, art, theater) then store that value as category
+				app.category = app.category + ' ' + $(this).val();
+			}
+			console.log(app.category);
+			console.log(app.subcategory);
 			app.category = app.category + ' ' + $(this).val();
 			console.log(app.category);
 		});
@@ -35,6 +44,12 @@ app.init = function () {
 		var endDate = $('.end-date').datepicker('getDate');
 		var dateRange = moment(startDate).format('YYYY-MM-DD') + ':' + moment(endDate).format('YYYY-MM-DD');
 		console.log(dateRange);
+		app.getInfo(dateRange, app.category, app.subcategory, app.neighborhood);
+	});
+};
+
+
+app.getInfo = function(dateRange, category, subcategory, neighborhood) {
 		app.getInfo(dateRange, app.category, app.neighborhood);
 	});
 };
@@ -47,7 +62,7 @@ L.mapbox.accessToken = 'pk.eyJ1Ijoiam9hbm5hc3RlY2V3aWN6IiwiYSI6IjIzNmNhNjJmNzgxM
 
 app.getInfo = function(dateRange, category, neighborhood) {
 	$.ajax({
-		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
+		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?&filters=neighborhood: (Chelsea "Greenwhich Village" SoHo TriBeCa NoHo)',
 		type: 'GET',
 		dataType: 'jsonp',
 	    data: {
@@ -61,6 +76,10 @@ app.getInfo = function(dateRange, category, neighborhood) {
 			console.log(res);
 		}
 	});
+
+
+
+
 };
 
 app.displayResults = function() {
@@ -71,9 +90,14 @@ app.displayResults = function() {
 
 
 
+
 $(function () {
 	app.init();
 });
+
+
+
+
 
 
 
