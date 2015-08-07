@@ -22,6 +22,7 @@ app.init = function () {
     	$(this).datepicker();
     });
 	$('form').on('submit', function (e) {
+		console.log('submitted');
 		e.preventDefault();
 		$('.neighborhood-question input[type=checkbox]:checked').each(function(){
 		    app.neighborhood = app.neighborhood + ' ' + $(this).val();
@@ -58,19 +59,29 @@ app.getInfo = function(dateRange, category, neighborhood) {
 	      'date_range': dateRange
 	  },
 	  	success: function (res) {
-			console.log(res);
+	  		console.log(res);
+			app.displayResults;
 		}
 	});
 };
 
 $('.question').on ('click', 'label', function() {
 	$(this).toggleClass('choose');
-	$(this).find('i').toggleClass('fa-check-square-o fa-square-o');
+	$(this).find('i').toggleClass('fa-check-square-o fa-square-o')
+	$(this).find('input[type=checkbox]').attr('checked','checked');
 });	
 
 
-app.displayResults = function() {
-	
+app.displayResults = function(data) {
+	var results = data.results;
+	if (results.length===0) {
+		var noResults = $('<h3>');
+		noResults.text('Sorry, we couldn\'t find any results in your area.');
+		$('#results').append(noResults);
+		console.log(noResults);
+	} else {
+
+	}
 };
 
 
