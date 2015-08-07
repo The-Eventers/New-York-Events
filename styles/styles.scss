@@ -91,13 +91,27 @@ header {
 }
 
 
-
 /*Map Styles*/
 
 #map {
     width: 40%;
     height: 100vh;
     float: right;
+}
+
+/*Results Styles*/
+
+#results {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.result-container {
+	width: 50%;
+	display: flex;
+	flex-wrap: wrap;
+
 }
 
 /*Footer Styles*/
