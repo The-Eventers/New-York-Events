@@ -11,11 +11,9 @@
 	//8A. Save user's events in an array that is displayed in a modal by clicking on "My Events" in top right corner of nav bar
 	//8B. Allow user to select events from their list of saved events to print off/email information about (format print versions)
 
-
 var app = {};
 app.neighborhood = '';
 app.category = '';
-app.subcategory = '';
 
 
 app.init = function () {
@@ -30,13 +28,6 @@ app.init = function () {
 		    console.log(app.neighborhood);
 		  });
 		$('.category-question input[type=checkbox]:checked').each(function() {
-			if ($(this).hasClass('subcategory')) { //if option selected is a subcategory (museums or events) then store that value as subcategory
-				app.subcategory = app.subcategory + ' ' + $(this).val();
-			} else if ($(this).hasClass('category')) { //if option selected is a category (comedy, art, theater) then store that value as category
-				app.category = app.category + ' ' + $(this).val();
-			}
-			console.log(app.category);
-			console.log(app.subcategory);
 			app.category = app.category + ' ' + $(this).val();
 			console.log(app.category);
 		});
@@ -44,12 +35,6 @@ app.init = function () {
 		var endDate = $('.end-date').datepicker('getDate');
 		var dateRange = moment(startDate).format('YYYY-MM-DD') + ':' + moment(endDate).format('YYYY-MM-DD');
 		console.log(dateRange);
-		app.getInfo(dateRange, app.category, app.subcategory, app.neighborhood);
-	});
-};
-
-
-app.getInfo = function(dateRange, category, subcategory, neighborhood) {
 		app.getInfo(dateRange, app.category, app.neighborhood);
 	});
 };
@@ -76,21 +61,18 @@ app.getInfo = function(dateRange, category, neighborhood) {
 			console.log(res);
 		}
 	});
-
-
-
-
 };
+
+$('.question').on ('click', 'label', function() {
+	$(this).toggleClass('choose');
+	$(this).find('i').toggleClass('fa-check-square-o fa-square-o');
+});	
 
 
 app.displayResults = function() {
 	
 
 };
-
-
-
-
 
 
 $(function () {

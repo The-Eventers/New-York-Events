@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>NewYork Event Finder</title>
 	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700|Montserrat:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -14,7 +15,7 @@
 		<div class="header-content">
 			<h1>New York, New York</h1>
 			<h2>A City Events Guide</h2>
-			<form id="dates">
+	<form id="dates">
 			<label for="Date Picker Start Date">
 				<input type="text" id="date1" class=" datepicker start-date">
 			</label>
@@ -23,67 +24,61 @@
 			</label> 
 			<input type="submit" value="Date Range" class="submit-date">
 		</div>
-
-
-		<div class="options-results">
-				<div class="question neighborhood-question">
-					<p>Pick a neighborhood:</p>
-					<input type="checkbox" name ="neighborhood chelsea" value="Chelsea">
-						<label for="neighborhood">Chelsea</label>
-					<input type="checkbox" name ="greenwich-village" value="'Greenwich Village'">
-						<label for="greenwich-village">Greenwich Village</label>
-					<input type="checkbox" name ="SoHo" value="SoHo">
-						<label for="SoHo">SoHo</label>
-					<input type="checkbox" name ="NoHo" value="NoHo">
-						<label for="NoHo">NoHo</label>
-					<input type="checkbox" name ="TriBeCa" value="TriBeCa">
-						<label for="TriBeCa">TriBeCa</label>
-				</div>
-				<div class="question category-question">
-					<p>Pick an activity:</p>
-					<input type="checkbox" class="subcategory" name="museums" value="Museums">
-						<label for="museums">Museums</label>
-					<input type="checkbox" class="subcategory" name="events" value="Events">
-						<label for="events">Events</label>
-					<input type="checkbox" class="category" name="comedy" value="Comedy">
-						<label for="comedy">Comedy</label>
-					<input type="checkbox" class="category" name="art" value="Art">
-						<label for="art">Art</label>
-					<input type="checkbox" class="category" name="theater" value="Theater">
-					<label for="theater">Theater</label>
-				</div>
-				<input type="submit" class="submit" value="Search">
-			</form>
-		</div>
 	</header>
 
 	<section class="options-results">
+		<div class="questions">
 			<div class="question neighborhood-question">
 				<p>Pick a neighborhood:</p>
-				<input type="checkbox" name ="neighborhood chelsea" value="Chelsea">
-					<label for="neighborhood">Chelsea</label>
-				<input type="checkbox" name ="greenwich-village" value="'Greenwich Village'">
-					<label for="greenwich-village">Greenwich Village</label>
-				<input type="checkbox" name ="SoHo" value="SoHo">
-					<label for="SoHo">SoHo</label>
-				<input type="checkbox" name ="NoHo" value="NoHo">
-					<label for="NoHo">NoHo</label>
-				<input type="checkbox" name ="TriBeCa" value="TriBeCa">
-					<label for="TriBeCa">TriBeCa</label>
+
+				
+					<i class="fa fa-square-o unchecked"></i>
+					<input type="checkbox" name ="neighborhood chelsea" id="chelsea" value="Chelsea">
+					<label for="chelsea">Chelsea</label>
+				<label for="greenwich-village" id="greenwich-village">
+					<i class="fa fa-square-o"></i>
+					<input type="checkbox" name ="greenwich-village" id="greenwich-village" value="'Greenwich Village'">Greenwich Village
+				</label>
+
+				<label for="SoHo" id="SoHo">
+					<i class="fa fa-square-o"></i>
+					<input type="checkbox" name ="SoHo" value="SoHo" id="SoHo">SoHo
+				</label>
+
+				<label for="NoHo" id="NoHo">
+					<i class="fa fa-square-o unchecked"></i>
+					<input type="checkbox" name ="NoHo" value="NoHo" id="NoHo">NoHo
+				</label>
+
+				<label for="TriBeCa" id="TriBeCa">
+					<i class="fa fa-square-o unchecked"></i>
+					<input type="checkbox" name ="TriBeCa" value="TriBeCa" id="TriBeCa">TriBeCa
+				</label>
 			</div>
 			<div class="question category-question">
 				<p>Pick an activity:</p>
-				<input type="checkbox" class="category" name="comedy" value="Comedy">
-					<label for="comedy">Comedy</label>
-				<input type="checkbox" class="category" name="art" value="Art">
-					<label for="art">Art</label>
-				<input type="checkbox" class="category" name="theater" value="Theater">
-				<label for="theater">Theater</label>
+				<label for="comedy" id="comedy">
+					<i class="fa fa-square-o unchecked"></i>
+					<input type="checkbox" class="category" name="comedy" value="Comedy" id="comedy">Comedy
+				</label>
+
+				<label for="art" id="art">
+					<i class="fa fa-square-o unchecked"></i>
+					<input type="checkbox" class="category" name="art" value="Art" id="art">Art
+				</label>
+
+				<label for="theater" id="theater">
+					<i class="fa fa-square-o unchecked"></i>
+					<input type="checkbox" class="category" name="theater" value="Theater" id="theatre">Theater
+				</label>
 			</div>
 			<input type="submit" class="submit" value="Search">
 		</form>
+		</div>
+	
+		<div id="map"></div>
 	</section>
-	<div id="map"></div>
+
 	<footer>
 		<p>&copy; Designed & Developed by Evan Davis, Joanna Stecewicz & Jessica Taylor</p>
 	</footer>
