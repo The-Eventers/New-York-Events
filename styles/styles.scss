@@ -77,17 +77,21 @@ header {
 /*Form Styles*/
 
 .options-results {
-	width: 60%;
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 }
 
 .question {
-	width: 100%
+	width: 100%;
 }
 
 .question input[type="checkbox"] {
 	visibility: hidden
+}
+
+.questions{
+	width:60%;
 }
 
 
@@ -96,7 +100,7 @@ header {
 #map {
     width: 40%;
     height: 100vh;
-    float: right;
+    
 }
 
 /*Results Styles*/
@@ -110,8 +114,20 @@ header {
 .result-container {
 	width: 50%;
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap:wrap;
+	padding: 2%;
 
+}
+.title p {
+	font-size: 1.8rem;
+
+}
+.venue p, .address p {
+	font-size: 1.4rem;
+
+}
+.description p {
+	font-size: 1.2rem;
 }
 
 /*Footer Styles*/
@@ -119,9 +135,9 @@ header {
 footer {
 	display: flex;
 	align-items: center;
-	width: 100%
+	width: 100%;
 	height: 10vh;
-	text-align: center
+	text-align: center;
 }
 
 
