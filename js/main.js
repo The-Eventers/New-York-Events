@@ -73,6 +73,7 @@ $('.question').on ('click', 'label', function() {
 
 
 app.displayResults = function(res) {
+	$('#results').empty();
 	var results = res.results;
 	// console.log(results);
 	if (results.length===0) {
