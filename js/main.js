@@ -26,16 +26,16 @@ app.init = function () {
 		e.preventDefault();
 		$('.neighborhood-question input[type=checkbox]:checked').each(function(){
 		    app.neighborhood = app.neighborhood + ' ' + $(this).val();
-		    console.log(app.neighborhood);
+		    // console.log(app.neighborhood);
 		  });
 		$('.category-question input[type=checkbox]:checked').each(function() {
 			app.category = app.category + ' ' + $(this).val();
-			console.log(app.category);
+			// console.log(app.category);
 		});
 		var startDate = $('.start-date').datepicker('getDate');
 		var endDate = $('.end-date').datepicker('getDate');
 		var dateRange = moment(startDate).format('YYYY-MM-DD') + ':' + moment(endDate).format('YYYY-MM-DD');
-		console.log(dateRange);
+		// console.log(dateRange);
 		app.getInfo(dateRange, app.category, app.neighborhood);
 	});
 };
@@ -59,8 +59,8 @@ app.getInfo = function(dateRange, category, neighborhood) {
 	      'date_range': dateRange
 	  },
 	  	success: function (res) {
-	  		console.log(res);
-			app.displayResults;
+	  		// console.log(res);
+			app.displayResults(res);
 		}
 	});
 };
@@ -72,16 +72,29 @@ $('.question').on ('click', 'label', function() {
 });	
 
 
-app.displayResults = function(data) {
-	var results = data.results;
+app.displayResults = function(res) {
+	var results = res.results;
+	// console.log(results);
 	if (results.length===0) {
 		var noResults = $('<h3>');
 		noResults.text('Sorry, we couldn\'t find any results in your area.');
 		$('#results').append(noResults);
 		console.log(noResults);
 	} else {
+		// loop over results array to get & display info
 
-	}
+		$.each(results, function(index, value) {
+			console.log(index, value)
+			var resultContainer = $('<div>').addClass('result-container');
+			var title = $('<p>').text(value.event_name).addClass('title');
+			var venue = $('<p>').text(value.venue_name).addClass('venue');
+			var address = $('<p>').text(value.street_address).addClass('address');
+			var neighborhood = $('<p>').text(value.neighborhood).addClass('neighborhood');
+			var description = $('<p>').html(value.web_description).addClass('description');
+			resultContainer.append(title, venue, address, neighborhood, description);
+			$('#results').append(resultContainer);
+		});
+	};
 };
 
 
