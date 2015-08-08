@@ -30,13 +30,16 @@ body {
 h1 {
 	@include headingText(8rem);
 	color: $offwhite;
-	margin: 0
+	margin: 0;
 }
 
 h2 {
-	@include bodyText(3rem);
+	@include bodyText(3.5rem);
 	color: $offwhite;
-	text-transform: uppercase
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	margin: 0 0 3%;
+	font-weight: 300;
 }
 
 p {
@@ -44,10 +47,51 @@ p {
 	color: #000;
 }
 
+/*JavaScript Classes*/
+
+section.hide {
+	display: none;
+}
+
+header.hide {
+	display: none;
+}
+
+@-webkit-keyframes slideOutUp {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    visibility: hidden;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes slideOutUp {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    visibility: hidden;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.slideOutUp {
+  -webkit-animation-name: slideOutUp;
+  animation-name: slideOutUp;
+}
+
 /*Header Styles*/
 
 header {
-	background: linear-gradient( rgba(26, 76, 80, 0.3), rgba(26, 76, 80, 0.7)), url(https://download.unsplash.com/25/black-white-city.jpg);
+	background: linear-gradient( rgba(26, 76, 80, 0.7), rgba(26, 76, 80, 0.4)), url(https://download.unsplash.com/25/black-white-city.jpg);
 	background-position: cover;
 	background-repeat: no-repeat;
 	background-size: 100%;
@@ -58,17 +102,130 @@ header {
 	padding: 20% 0;
 }
 
+svg {
+	color: $offwhite;
+	font-size: 10rem;
+}
+
 .header-content {
 	text-align: center;
 	color: #F7FCFA;
 }
 
-.header-content input {
-	margin: 5% 0;
-	width: 25%;
+.header-content input[type=text] {
+	background: $offwhite;
+	font-size: 2rem;
+	border: none;
+	margin: 0.5%;
+	padding: 1.2% 1%;
+}
+
+label.datepicker {
+	position: relative;
+}
+
+::-webkit-input-placeholder {
+   font-family: $bodyfont;
+   font-weight: 300;
+   letter-spacing: 1px;
+   text-transform: uppercase;
+   font-size: 1.5rem;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   font-family: $bodyfont;
+   font-weight: 300;
+   letter-spacing: 1px;
+   text-transform: uppercase;
+   font-size: 1.5rem;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   font-family: $bodyfont;
+   font-weight: 300;
+   letter-spacing: 1px;
+   text-transform: uppercase;
+   font-size: 1.5rem; 
+
+:-ms-input-placeholder {  
+   font-family: $bodyfont;
+   font-weight: 300;
+   letter-spacing: 1px;
+   text-transform: uppercase;
+   font-size: 1.5rem;  
+}
+
+.fa-chevron-down {
+	position: absolute;
+	top: 0;
+	right: 6%;
+	color: #000;
+	font-size: 5rem;
+}
+
+.fa-chevron-down:hover {
+	cursor:pointer;
+}
+
+.date-submit {
+	font-size: 2rem;
+	background: $lightgreen;
+	color: $offwhite;
+	border: none;
+	border-bottom: 3px solid #EDEACA;
+	padding: 0.5% 7%;
+	border-radius: 3px;
+	font-family: $headingfont;
+	font-weight: 400;
+	letter-spacing: 2px;
+	margin: 0 0.5%;
+
 }
 
 /*Styles for Form/Map Section*/
+
+.myevents {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0 2%;
+	border-bottom: 2px solid #E5EfEc;
+}
+
+.myevents p {
+	font-family: $bodyfont;
+	text-transform: uppercase;
+	font-weight: 300;
+	letter-spacing: 1px;
+}
+
+.myevents a {
+	font-family: $bodyfont;
+	color: $lightgreen;
+	text-decoration: none;
+	padding-bottom: 2%;
+	border-bottom: 1px solid $lightgreen;
+}
+
+.myevents p:hover a {
+	color: $purple;
+	border-bottom: 1px solid $purple;
+}
+
+.myevents i {
+	color: $lightgreen;
+	font-weight: 400;
+	font-size: 2rem;
+	position: relative;
+	top: 2px;
+	transform: rotate(-135deg);
+}
+
+.myevents p:hover i {
+	color: $purple;
+}
+
 
 .form-section {
 	display: flex;
@@ -84,14 +241,64 @@ header {
 
 .question {
 	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 2% 0 3%;
+	border-bottom: 1px solid $purple;
+	p {
+		font-size: 2rem;
+		width: 100%;
+		color: $darkgreen;
+		padding-bottom: 1%
+	}
 }
 
+
 .question input[type="checkbox"] {
-	visibility: hidden
+	visibility: hidden; 
+	color: $darkgreen;
 }
 
 .questions{
 	width:60%;
+	padding: 1% 1.5%;
+}
+
+.questions label {
+	font-size: 1.5rem;
+	font-family: $bodyfont;
+	text-transform: uppercase;
+	padding: 1% 2%;
+}
+
+.question label i {
+	margin: -1%;
+}
+
+// .question input[checked~="checked"] {
+// 	background: blue;
+// }
+
+.submit-div {
+	display: flex;
+	justify-content: flex-end;
+}
+
+
+input[type=submit].submit{
+	font-size: 2rem;
+	background: $purple;
+	color: $offwhite;
+	border: none;
+	border-bottom: 3px solid #55236A;
+	padding: 0.5% 4%;
+	border-radius: 3px;
+	font-family: $headingfont;
+	font-weight: 400;
+	letter-spacing: 2px;
+	margin: 2% 0;
+	text-transform: uppercase;
+
 }
 
 
@@ -99,7 +306,7 @@ header {
 
 #map {
     width: 40%;
-    height: 100vh;
+    height: 93vh;
     
 }
 
@@ -109,35 +316,78 @@ header {
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
+	justify-content: space-between;
+}
+
+.sorry {
+	font-family: $bodyfont;
+	font-size: 2rem;
+	font-weight: 300;
+	color: $darkgreen;
+	text-align: center;
+	padding-top: 5%;
+	line-height: 1.5;
 }
 
 .result-container {
-	width: 50%;
+	width: 49%;
 	display: flex;
-	flex-wrap:wrap;
+	flex-wrap: wrap;
 	padding: 2%;
+	background: $offwhite;
+	margin-bottom: 2%;
+	border: 1px solid #E5EfEc;
 
 }
-.title p {
+
+p.title, p.venue, p.address, p.neighborhood {
+	width: 100%;
+}
+
+p.venue, p.address, p.neighborhood {
+	margin: 0;
+}
+
+p.title {
 	font-size: 1.8rem;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+p.venue, p.address, p.neighborhood {
+	font-size: 1.5rem;
+	font-family: $headingfont;
+	text-transform: uppercase;
+	color: $darkgreen;
+	font-weight: 300;
 
 }
-.venue p, .address p {
+
+
+p.description {
 	font-size: 1.4rem;
-
-}
-.description p {
-	font-size: 1.2rem;
 }
 
 /*Footer Styles*/
 
 footer {
 	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 10vh;
+	border-top: 2px solid #E5EfEc;
+	padding: 0.5% 2%;
+}
+footer p {
+	color: $darkgreen;
+	width: 100%;
+	font-size: 1.3rem;
+	padding: 0.3% 0;
+	margin: 0;
 	text-align: center;
+	text-transform: uppercase;
+	font-weight: 300;
 }
 
 
