@@ -165,28 +165,6 @@ section.hide {
 header.hide {
   display: none; }
 
-@-webkit-keyframes slideOutUp {
-  from {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0); }
-  100% {
-    visibility: hidden;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0); } }
-
-@keyframes slideOutUp {
-  from {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0); }
-  100% {
-    visibility: hidden;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0); } }
-
-.slideOutUp {
-  -webkit-animation-name: slideOutUp;
-  animation-name: slideOutUp; }
-
 /*Header Styles*/
 header {
   background: -webkit-linear-gradient(rgba(26, 76, 80, 0.7), rgba(26, 76, 80, 0.4)), url(https://download.unsplash.com/25/black-white-city.jpg);
@@ -259,7 +237,7 @@ label.datepicker {
   top: 0;
   right: 6%;
   color: #000;
-  font-size: 5rem; }
+  font-size: 2rem; }
 
 .fa-chevron-down:hover {
   cursor: pointer; }
@@ -292,7 +270,7 @@ label.datepicker {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 0 2%;
-  border-bottom: 2px solid #E5EfEc; }
+  border-bottom: 2px solid #E5EFEC; }
 
 .myevents p {
   font-family: Montserrat;
@@ -362,8 +340,7 @@ label.datepicker {
     padding-bottom: 1%; }
 
 .question input[type="checkbox"] {
-  visibility: hidden;
-  color: #1A4C50; }
+  visibility: hidden; }
 
 .questions {
   width: 60%;
@@ -484,7 +461,7 @@ footer {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  border-top: 2px solid #E5EfEc;
+  border-top: 2px solid #E5EFEC;
   padding: 0.5% 2%; }
 
 footer p {

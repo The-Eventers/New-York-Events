@@ -57,37 +57,6 @@ header.hide {
 	display: none;
 }
 
-@-webkit-keyframes slideOutUp {
-  from {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-
-  100% {
-    visibility: hidden;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-}
-
-@keyframes slideOutUp {
-  from {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-
-  100% {
-    visibility: hidden;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-}
-
-.slideOutUp {
-  -webkit-animation-name: slideOutUp;
-  animation-name: slideOutUp;
-}
-
 /*Header Styles*/
 
 header {
@@ -124,6 +93,7 @@ label.datepicker {
 	position: relative;
 }
 
+
 ::-webkit-input-placeholder {
    font-family: $bodyfont;
    font-weight: 300;
@@ -146,6 +116,7 @@ label.datepicker {
    letter-spacing: 1px;
    text-transform: uppercase;
    font-size: 1.5rem; 
+}
 
 :-ms-input-placeholder {  
    font-family: $bodyfont;
@@ -160,7 +131,7 @@ label.datepicker {
 	top: 0;
 	right: 6%;
 	color: #000;
-	font-size: 5rem;
+	font-size: 2rem;
 }
 
 .fa-chevron-down:hover {
@@ -168,18 +139,17 @@ label.datepicker {
 }
 
 .date-submit {
-	font-size: 2rem;
-	background: $lightgreen;
-	color: $offwhite;
-	border: none;
-	border-bottom: 3px solid #EDEACA;
-	padding: 0.5% 7%;
-	border-radius: 3px;
-	font-family: $headingfont;
-	font-weight: 400;
-	letter-spacing: 2px;
-	margin: 0 0.5%;
-
+    font-size: 2rem;
+    background: $lightgreen;
+    color: $offwhite;
+    border: none;
+    border-bottom: 3px solid #EDEACA;
+    padding: 0.5% 7%;
+    border-radius: 3px;
+    font-family: $headingfont;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin: 0 0.5%;
 }
 
 /*Styles for Form/Map Section*/
@@ -190,7 +160,7 @@ label.datepicker {
 	flex-wrap: wrap;
 	justify-content: space-between;
 	padding: 0 2%;
-	border-bottom: 2px solid #E5EfEc;
+	border-bottom: 2px solid #E5EFEC;
 }
 
 .myevents p {
@@ -249,18 +219,17 @@ label.datepicker {
 		font-size: 2rem;
 		width: 100%;
 		color: $darkgreen;
-		padding-bottom: 1%
+		padding-bottom: 1%;
 	}
 }
 
 
 .question input[type="checkbox"] {
 	visibility: hidden; 
-	color: $darkgreen;
 }
 
 .questions{
-	width:60%;
+	width: 60%;
 	padding: 1% 1.5%;
 }
 
@@ -298,7 +267,6 @@ input[type=submit].submit{
 	letter-spacing: 2px;
 	margin: 2% 0;
 	text-transform: uppercase;
-
 }
 
 
@@ -307,7 +275,6 @@ input[type=submit].submit{
 #map {
     width: 40%;
     height: 93vh;
-    
 }
 
 /*Results Styles*/
@@ -360,7 +327,6 @@ p.venue, p.address, p.neighborhood {
 	text-transform: uppercase;
 	color: $darkgreen;
 	font-weight: 300;
-
 }
 
 
@@ -376,7 +342,7 @@ footer {
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	border-top: 2px solid #E5EfEc;
+	border-top: 2px solid #E5EFEC;
 	padding: 0.5% 2%;
 }
 footer p {

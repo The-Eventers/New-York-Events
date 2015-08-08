@@ -20,7 +20,8 @@ app.init = function () {
 	$('.date-submit').on('click', function (e) {
 		e.preventDefault();
 		$('section.hide').removeClass('hide');
-		$('header').addClass('slideOutUp');
+		$('div.hide').removeClass('hide');
+		$('header').addClass('slide-up');
 	});
 	$('.datepicker').each(function () {
     	$(this).datepicker();
@@ -62,8 +63,10 @@ app.getInfo = function(dateRange, category, neighborhood) {
 	      'date_range': app.dateRange
 	  },
 	  	success: function (res) {
-	  		// console.log(res);
+	  		console.log(res);
 			app.displayResults(res);
+			app.displayResults(app.MuseumInfo);
+			app.displayResults(app.EventsInfo);
 		}
 	});
 };
@@ -76,13 +79,14 @@ $('#Museums').on ('click', function() {
 	    data: {
 	      'api-key': 'e6a25b3f20881562c56e3247ecd6335d:3:72623857',
 	      'facets': 1,
-	      'filters': 'subcategory: Museums and Sites',
+	      'filters': 'subcategory: Museums',
 	      'limit': 20,
 	      'date_range': app.dateRange
 	  },
 	  	success: function (museumResults) {
 			console.log(museumResults);
-			app.displayResults(museumResults);
+			app.MuseumInfo = museumResults;
+			// app.displayResults(app.MuseumInfo);
 		}
 	});
 });
@@ -101,62 +105,59 @@ $('#Events').on ('click', function() {
 	  },
 	  	success: function (eventResults) {
 			console.log(eventResults);
-			app.displayResults(eventResults);
-		}
-	});
-});
-
-$('#Tours').on ('click', function() {
-	$.ajax({
-		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?',
-		type: 'GET',
-		dataType: 'jsonp',
-	    data: {
-	      'api-key': 'e6a25b3f20881562c56e3247ecd6335d:3:72623857',
-	      'facets': 1,
-	      'filters': 'subcategory: Walking Tours',
-	      'limit': 20,
-	      'date_range': app.dateRange
-	  },
-	  	success: function (toursResults) {
-			console.log(toursResults);
-			app.displayResults(toursResults);
+			app.EventsInfo = eventResults;
 		}
 	});
 });
 
 $('.question').on ('click', 'label', function() {
 	$(this).toggleClass('choose');
-	$(this).find('i').toggleClass('fa-check-square-o fa-square-o');
+	$(this).find('i').toggleClass('fa-check-square-o fa-square-o').toggleClass;
 	$(this).find('input[type=checkbox]').attr('checked','checked');
 });	
 
 
-app.displayResults = function(res) {
-	$('#results').empty();
-	var results = res.results;
-	// console.log(results);
-	if (results.length===0) {
-		var noResults = $('<h3>');
-		noResults.text('Sorry, we couldn\'t find any results in your area. Try expanding your search.').addClass('sorry');
-		$('#results').append(noResults);
-		// console.log(noResults);
-	} else {
-		// loop over results array to get & display info
-
-		$.each(results, function(index, value) {
-			console.log(index, value);
-			var resultContainer = $('<div>').addClass('result-container');
-			var title = $('<p>').text(value.event_name).addClass('title');
-			var venue = $('<p>').text(value.venue_name).addClass('venue');
-			var address = $('<p>').text(value.street_address).addClass('address');
-			var neighborhood = $('<p>').text(value.neighborhood).addClass('neighborhood');
-			var description = $('<p>').html(value.web_description).addClass('description');
-			resultContainer.append(title, venue, address, neighborhood, description);
-			$('#results').append(resultContainer);
-			L.marker([value.geocode_latitude,value.geocode_longitude]).addTo(map).bindPopup(value.event_name + ":" + "<br>" + value.street_address);
-		});
+// app.displayAll = function(res) {
+// 	app.MuseumInfo();
+// 	app.ToursInfo();
+// 	app.EventsInfo();
+	app.displayResults = function(res) {
+		// $('#results').empty();
+		var results = res.results;
+		console.log(results);
+		if (results.length===0) {
+			var noResults = $('<h3>');
+			noResults.text('Sorry, we couldn\'t find any results in your area. Try expanding your search.').addClass('sorry');
+			$('#results').append(noResults);
+			// console.log(noResults);
+		} else {
+			// loop over results array to get & display info
+			console.log("entering prining loop");
+			$.each(results, function(index, value) {
+				console.log(index, value);
+				var resultContainer = $('<div>').addClass('result-container');
+				var title = $('<p>').text(value.event_name).addClass('title');
+				var venue = $('<p>').text(value.venue_name).addClass('venue');
+				var address = $('<p>').text(value.street_address).addClass('address');
+				var neighborhood = $('<p>').text(value.neighborhood).addClass('neighborhood');
+				var description = $('<p>').html(value.web_description).addClass('description');
+				resultContainer.append(title, venue, address, neighborhood, description);
+				$('#results').append(resultContainer);
+				L.marker([value.geocode_latitude,value.geocode_longitude]).addTo(map).bindPopup(value.event_name + ":" + "<br>" + value.street_address);
+			});
+		};
 	};
+
+
+
+// 1) call display everything on search
+
+// 2) ensure that display Everything has all the variables it needs
+
+// 3) bind listener of search button to display everything
+app.displayEverything = function (){
+	app.displayResults(app.MuseumInfo); 
+	app.displayResults(app.EventsInfo);
 };
 
 
@@ -165,20 +166,10 @@ $(function () {
 });
 
 
-//if the category clicked on is spare times 
-	//  if the value is 'Museums'
-			//display results with a subcategory of 'Museums and Sites'
-	//else if the value is 'Tours'
-			//display results with a subcategory of 'Walking Tours'
-//else
-
-
-
 //svg
 //style calendars
 //add date inputs to bottom form
 //masonry
-//add my events bar
 //modal
 //animation slide up
 //add save to my events
