@@ -17,12 +17,15 @@ app.category = '';
 
 
 app.init = function () {
-
+	$('.date-submit').on('click', function (e) {
+		e.preventDefault();
+		$('section.hide').removeClass('hide');
+		$('header').addClass('slideOutUp');
+	});
 	$('.datepicker').each(function () {
     	$(this).datepicker();
     });
 	$('form').on('submit', function (e) {
-		console.log('submitted');
 		e.preventDefault();
 		$('.neighborhood-question input[type=checkbox]:checked').each(function(){
 		    app.neighborhood = app.neighborhood + ' ' + $(this).val();
@@ -34,21 +37,21 @@ app.init = function () {
 		});
 		var startDate = $('.start-date').datepicker('getDate');
 		var endDate = $('.end-date').datepicker('getDate');
-		var dateRange = moment(startDate).format('YYYY-MM-DD') + ':' + moment(endDate).format('YYYY-MM-DD');
+		app.dateRange = moment(startDate).format('YYYY-MM-DD') + ':' + moment(endDate).format('YYYY-MM-DD');
 		// console.log(dateRange);
-		app.getInfo(dateRange, app.category, app.neighborhood);
+		app.getInfo(app.dateRange, app.category, app.neighborhood);
 	});
 };
 
 L.mapbox.accessToken = 'pk.eyJ1Ijoiam9hbm5hc3RlY2V3aWN6IiwiYSI6IjIzNmNhNjJmNzgxMjhkMzI3M2ZhYjU2Yjk1YmNlZWZmIn0.rA-ceyz6zzzlwCw0Hv0CMQ';
     var map = L.mapbox.map('map', 'mapbox.emerald')
-       .setView([40.7, -74.0], 11);
+       .setView([40.73, -74.0], 13);
        map.scrollWheelZoom.disable();
 
 
 app.getInfo = function(dateRange, category, neighborhood) {
 	$.ajax({
-		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?&filters=neighborhood: (Chelsea "Greenwhich Village" SoHo TriBeCa NoHo)',
+		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
 		type: 'GET',
 		dataType: 'jsonp',
 	    data: {
@@ -56,7 +59,7 @@ app.getInfo = function(dateRange, category, neighborhood) {
 	      'facets': 1,
 	      'filters': 'category:' + app.category + ',neighborhood:' + app.neighborhood,
 	      'limit': 20,
-	      'date_range': dateRange
+	      'date_range': app.dateRange
 	  },
 	  	success: function (res) {
 	  		// console.log(res);
@@ -65,9 +68,66 @@ app.getInfo = function(dateRange, category, neighborhood) {
 	});
 };
 
+$('#Museums').on ('click', function() {
+	$.ajax({
+		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?',
+		type: 'GET',
+		dataType: 'jsonp',
+	    data: {
+	      'api-key': 'e6a25b3f20881562c56e3247ecd6335d:3:72623857',
+	      'facets': 1,
+	      'filters': 'subcategory: Museums and Sites',
+	      'limit': 20,
+	      'date_range': app.dateRange
+	  },
+	  	success: function (museumResults) {
+			console.log(museumResults);
+			app.displayResults(museumResults);
+		}
+	});
+});
+
+$('#Events').on ('click', function() {
+	$.ajax({
+		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?',
+		type: 'GET',
+		dataType: 'jsonp',
+	    data: {
+	      'api-key': 'e6a25b3f20881562c56e3247ecd6335d:3:72623857',
+	      'facets': 1,
+	      'filters': 'subcategory: Events',
+	      'limit': 20,
+	      'date_range': app.dateRange
+	  },
+	  	success: function (eventResults) {
+			console.log(eventResults);
+			app.displayResults(eventResults);
+		}
+	});
+});
+
+$('#Tours').on ('click', function() {
+	$.ajax({
+		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?',
+		type: 'GET',
+		dataType: 'jsonp',
+	    data: {
+	      'api-key': 'e6a25b3f20881562c56e3247ecd6335d:3:72623857',
+	      'facets': 1,
+	      'filters': 'subcategory: Walking Tours',
+	      'limit': 20,
+	      'date_range': app.dateRange
+	  },
+	  	success: function (toursResults) {
+			console.log(toursResults);
+			app.displayResults(toursResults);
+		}
+	});
+});
+
 $('.question').on ('click', 'label', function() {
 	$(this).toggleClass('choose');
-	$(this).find('i').toggleClass('fa-check-square-o fa-square-o')
+	$(this).find('i').toggleClass('fa-check-square-o fa-square-o');
 	$(this).find('input[type=checkbox]').attr('checked','checked');
 });	
 
@@ -78,14 +138,14 @@ app.displayResults = function(res) {
 	// console.log(results);
 	if (results.length===0) {
 		var noResults = $('<h3>');
-		noResults.text('Sorry, we couldn\'t find any results in your area.');
+		noResults.text('Sorry, we couldn\'t find any results in your area. Try expanding your search.').addClass('sorry');
 		$('#results').append(noResults);
-		console.log(noResults);
+		// console.log(noResults);
 	} else {
 		// loop over results array to get & display info
 
 		$.each(results, function(index, value) {
-			console.log(index, value)
+			console.log(index, value);
 			var resultContainer = $('<div>').addClass('result-container');
 			var title = $('<p>').text(value.event_name).addClass('title');
 			var venue = $('<p>').text(value.venue_name).addClass('venue');
@@ -94,6 +154,7 @@ app.displayResults = function(res) {
 			var description = $('<p>').html(value.web_description).addClass('description');
 			resultContainer.append(title, venue, address, neighborhood, description);
 			$('#results').append(resultContainer);
+			L.marker([value.geocode_latitude,value.geocode_longitude]).addTo(map).bindPopup(value.event_name + ":" + "<br>" + value.street_address);
 		});
 	};
 };
@@ -102,6 +163,30 @@ app.displayResults = function(res) {
 $(function () {
 	app.init();
 });
+
+
+//if the category clicked on is spare times 
+	//  if the value is 'Museums'
+			//display results with a subcategory of 'Museums and Sites'
+	//else if the value is 'Tours'
+			//display results with a subcategory of 'Walking Tours'
+//else
+
+
+
+//svg
+//style calendars
+//add date inputs to bottom form
+//masonry
+//add my events bar
+//modal
+//animation slide up
+//add save to my events
+//printable
+//credit the svg person
+//show more button (load/ more results)
+//slider images possibly?
+
 
 
 
