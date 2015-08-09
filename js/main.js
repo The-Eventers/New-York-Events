@@ -20,22 +20,23 @@ app.init = function () {
 	$('.start-date').on('change', function() {
 		$('.start-date-bottom').val($(this).val());
 	});
+
 	$('.end-date').on('change', function() {
 		$('.end-date-bottom').val($(this).val());
 	});
+
 	$('.date-submit').on('click', function (e) {
 		e.preventDefault();
 		$('section.hide').removeClass('hide');
 		$('.form-section.hide').removeClass('hide');
 		$('.myevents.hide').removeClass('hide');
 		$('header').addClass('hide');
-		// $('.end-date-bottom').attr('placeholder', app.endDate); Push user input dates to bottom form inputs
 		});
-
 
 	$('.datepicker').each(function () {
     	$(this).datepicker();
     });
+
 	$('form').on('submit', function (e) {
 		e.preventDefault();
 		$('.neighborhood-question input[type=checkbox]:checked').each(function(){
@@ -64,7 +65,6 @@ L.mapbox.accessToken = 'pk.eyJ1Ijoiam9hbm5hc3RlY2V3aWN6IiwiYSI6IjIzNmNhNjJmNzgxM
     var map = L.mapbox.map('map', 'mapbox.emerald')
        .setView([40.73, -74.0], 13);
        map.scrollWheelZoom.disable();
-
 
 app.getInfo = function(dateRange, category, neighborhood) {
 	$.ajax({
@@ -130,10 +130,6 @@ $('.question').on ('click', 'label', function() {
 });	
 
 
-// app.displayAll = function(res) {
-// 	app.MuseumInfo();
-// 	app.ToursInfo();
-// 	app.EventsInfo();
 	app.displayResults = function(res) {
 		// $('#results').empty();
 		var results = res.results;
@@ -179,7 +175,6 @@ app.applyMasonry = function (){
 app.displayEverything = function (){
 	app.displayResults(app.MuseumInfo); 
 	app.displayResults(app.EventsInfo);
-};
 
 
 $(function () {
