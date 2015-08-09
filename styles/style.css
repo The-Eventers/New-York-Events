@@ -203,6 +203,9 @@ header svg {
   margin: 0.5%;
   padding: 1.5% 1.5%; }
 
+.header-content input[type=text]:hover {
+  cursor: pointer; }
+
 label.datepicker {
   position: relative; }
 
@@ -257,7 +260,13 @@ label.datepicker {
   font-family: Oswald, sans-serif;
   font-weight: 400;
   letter-spacing: 2px;
-  margin: 0 0.5%; }
+  margin: 0 0.5%;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease; }
+
+.date-submit:hover {
+  background: #a89c25;
+  border-bottom: 3px solid #D5D2B6; }
 
 /* Date picker */
 .ui-datepicker {
@@ -388,6 +397,7 @@ p.logo {
   font-family: Oswald, sans-serif;
   color: #F7FCFA;
   background: #D6C943;
+  border-bottom: 3px solid #EDEACB;
   text-decoration: none;
   padding: 1.5% 2.5%;
   border-radius: 3px;
@@ -398,8 +408,8 @@ p.logo {
           transition: all 0.3s ease; }
 
 .myevents p:hover a {
-  color: #F7FCFA;
-  background: #A14FC4; }
+  background: #a89c25;
+  border-bottom: 3px solid #D5D2B6; }
 
 .myevents p i {
   color: #F7FCFA;
@@ -413,7 +423,7 @@ p.logo {
 
 .myevents p i:hover {
   color: #F7FCFA;
-  background: #1A4C50; }
+  background: #a89c25; }
 
 .modal {
   height: 100vh;
@@ -478,12 +488,12 @@ p.logo {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  margin-top: 14vh; }
+  margin-top: 16vh; }
 
 /*Form Styles*/
 .options-results {
   width: 100%;
-  height: 92vh;
+  height: 84vh;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -491,6 +501,27 @@ p.logo {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap; }
+
+.bottom-dates {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.bottom-dates p {
+  width: 20%;
+  margin: 0;
+  font-size: 2rem;
+  color: #1A4C50;
+  padding-bottom: 1%; }
 
 input.datepicker-bottom {
   font-size: 2rem;
@@ -520,11 +551,6 @@ label.datepicker-bottom {
           flex-wrap: wrap;
   padding: 2% 0 3%;
   border-bottom: 1px solid #A14FC4; }
-  .question p {
-    font-size: 2rem;
-    width: 100%;
-    color: #1A4C50;
-    padding-bottom: 1%; }
 
 .question input[type="checkbox"] {
   visibility: hidden; }
@@ -532,6 +558,12 @@ label.datepicker-bottom {
 .questions {
   width: 60%;
   padding: 1% 1.5%; }
+
+.question p {
+  font-size: 2rem;
+  width: 100%;
+  color: #1A4C50;
+  padding-bottom: 1%; }
 
 .questions label {
   font-size: 1.5rem;
@@ -557,7 +589,7 @@ input[type=submit].submit {
   background: #A14FC4;
   color: #F7FCFA;
   border: none;
-  border-bottom: 3px solid #55236A;
+  border-bottom: 3px solid #BF83D9;
   padding: 0.5% 4%;
   border-radius: 3px;
   font-family: Oswald, sans-serif;
@@ -565,6 +597,9 @@ input[type=submit].submit {
   letter-spacing: 2px;
   margin: 2% 0;
   text-transform: uppercase; }
+
+input[type=submit].submit:hover {
+  background: #8845a4; }
 
 /*Map Styles*/
 #map {

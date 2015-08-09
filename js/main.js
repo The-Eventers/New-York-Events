@@ -30,7 +30,7 @@ app.init = function () {
 		e.preventDefault();
 		console.log(app);
 		if($('.start-date').val() === "" || $('.end-date').val() === "" ) {
-			console.log('hello')
+			console.log('hello');
 			alert("Sorry please enter a date to complete the request");
 		} else {
 			$('section.hide').removeClass('hide');
@@ -151,7 +151,7 @@ $('.question').on ('click', 'label', function() {
 			// loop over results array to get & display info
 			$.each(results, function(index, value) {
 				console.log(index, value);
-				var resultContainer = $('<div>').addClass('result-container');
+				app.resultContainer = $('<div>').addClass('result-container');
 				var title = $('<p>').text(value.event_name).addClass('title');
 				var venue = $('<p>').text(value.venue_name).addClass('venue');
 				var address = $('<p>').text(value.street_address).addClass('address');
@@ -160,14 +160,18 @@ $('.question').on ('click', 'label', function() {
 				var saveContainer = $('<div>').addClass('save-container');
 				var save = $('<p>').text('Save to My Activities').addClass('save');
 				saveContainer.append(save);
-				resultContainer.append(title, venue, address, neighborhood, description, saveContainer);
-				$('#results').append(resultContainer);
+				app.resultContainer.append(title, venue, address, neighborhood, description, saveContainer);
+				$('#results').append(app.resultContainer);
 				app.applyMasonry();
 				L.marker([value.geocode_latitude,value.geocode_longitude]).addTo(map).bindPopup(value.event_name + ":" + "<br>" + value.street_address);
 			});
 		}
+		$('.save').on('click', function () {
+			$('.saved-activities').append(app.resultContainer);
+		});
 
 	};
+
 
 app.applyMasonry = function (){
 	setTimeout(function() {
@@ -182,7 +186,7 @@ app.applyMasonry = function (){
 app.displayEverything = function (){
 	app.displayResults(app.MuseumInfo); 
 	app.displayResults(app.EventsInfo);
-}
+};
 
 $(function () {
 	app.init();
