@@ -20,8 +20,11 @@ app.init = function () {
 	$('.date-submit').on('click', function (e) {
 		e.preventDefault();
 		$('section.hide').removeClass('hide');
-		$('div.hide').removeClass('hide');
-		$('header').addClass('slide-up');
+		$('.form-section.hide').removeClass('hide');
+		$('.myevents.hide').removeClass('hide');
+		$('header').addClass('hide');
+		$('#start-date-bottom').attr('placeholder', app.startDate);
+		// $('#end-date-bottom').attr('placeholder', app.endDate); Push user input dates to bottom form inputs
 	});
 	$('.datepicker').each(function () {
     	$(this).datepicker();
@@ -36,13 +39,22 @@ app.init = function () {
 			app.category = app.category + ' ' + $(this).val();
 			// console.log(app.category);
 		});
-		var startDate = $('.start-date').datepicker('getDate');
-		var endDate = $('.end-date').datepicker('getDate');
-		app.dateRange = moment(startDate).format('YYYY-MM-DD') + ':' + moment(endDate).format('YYYY-MM-DD');
+		app.startDate = $('.start-date').datepicker('getDate');
+		app.endDate = $('.end-date').datepicker('getDate');
+		app.dateRange = moment(app.startDate).format('YYYY-MM-DD') + ':' + moment(app.endDate).format('YYYY-MM-DD');
 		// console.log(dateRange);
 		app.getInfo(app.dateRange, app.category, app.neighborhood);
 	});
 };
+
+$('.show-modal').on ('click', function (e) {
+	e.preventDefault();
+	$('.modal').removeClass('hide');
+});
+
+$('.events i').on('click', function () {
+	$('.modal').addClass('hide');
+});
 
 L.mapbox.accessToken = 'pk.eyJ1Ijoiam9hbm5hc3RlY2V3aWN6IiwiYSI6IjIzNmNhNjJmNzgxMjhkMzI3M2ZhYjU2Yjk1YmNlZWZmIn0.rA-ceyz6zzzlwCw0Hv0CMQ';
     var map = L.mapbox.map('map', 'mapbox.emerald')
@@ -112,7 +124,7 @@ $('#Events').on ('click', function() {
 
 $('.question').on ('click', 'label', function() {
 	$(this).toggleClass('choose');
-	$(this).find('i').toggleClass('fa-check-square-o fa-square-o').toggleClass;
+	$(this).find('i').toggleClass('fa-check-square-o fa-square-o');
 	$(this).find('input[type=checkbox]').attr('checked','checked');
 });	
 
@@ -141,20 +153,17 @@ $('.question').on ('click', 'label', function() {
 				var address = $('<p>').text(value.street_address).addClass('address');
 				var neighborhood = $('<p>').text(value.neighborhood).addClass('neighborhood');
 				var description = $('<p>').html(value.web_description).addClass('description');
-				resultContainer.append(title, venue, address, neighborhood, description);
+				var saveContainer = $('<div>').addClass('save-container');
+				var save = $('<p>').text('Save to My Events').addClass('save');
+				saveContainer.append(save);
+				resultContainer.append(title, venue, address, neighborhood, description, saveContainer);
 				$('#results').append(resultContainer);
 				L.marker([value.geocode_latitude,value.geocode_longitude]).addTo(map).bindPopup(value.event_name + ":" + "<br>" + value.street_address);
 			});
-		};
+		}
 	};
 
 
-
-// 1) call display everything on search
-
-// 2) ensure that display Everything has all the variables it needs
-
-// 3) bind listener of search button to display everything
 app.displayEverything = function (){
 	app.displayResults(app.MuseumInfo); 
 	app.displayResults(app.EventsInfo);
@@ -166,17 +175,14 @@ $(function () {
 });
 
 
-//svg
-//style calendars
-//add date inputs to bottom form
+//add date values to bottom form
 //masonry
-//modal
-//animation slide up
 //add save to my events
 //printable
-//credit the svg person
 //show more button (load/ more results)
 //slider images possibly?
+//animation slide up
+//promises?
 
 
 
