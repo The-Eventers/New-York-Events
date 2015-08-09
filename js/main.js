@@ -20,11 +20,9 @@ app.init = function () {
 	$('.start-date').on('change', function() {
 		$('.start-date-bottom').val($(this).val());
 	});
-
 	$('.end-date').on('change', function() {
 		$('.end-date-bottom').val($(this).val());
 	});
-
 	$('.date-submit').on('click', function (e) {
 		e.preventDefault();
 		$('section.hide').removeClass('hide');
@@ -32,11 +30,9 @@ app.init = function () {
 		$('.myevents.hide').removeClass('hide');
 		$('header').addClass('hide');
 		});
-
 	$('.datepicker').each(function () {
     	$(this).datepicker();
     });
-
 	$('form').on('submit', function (e) {
 		e.preventDefault();
 		$('.neighborhood-question input[type=checkbox]:checked').each(function(){
@@ -51,16 +47,13 @@ app.init = function () {
 		app.getInfo(app.dateRange, app.category, app.neighborhood);
 	});
 };
-
 $('.show-modal').on ('click', function (e) {
 	e.preventDefault();
 	$('.modal').removeClass('hide');
 });
-
 $('.events i').on('click', function () {
 	$('.modal').addClass('hide');
 });
-
 L.mapbox.accessToken = 'pk.eyJ1Ijoiam9hbm5hc3RlY2V3aWN6IiwiYSI6IjIzNmNhNjJmNzgxMjhkMzI3M2ZhYjU2Yjk1YmNlZWZmIn0.rA-ceyz6zzzlwCw0Hv0CMQ';
     var map = L.mapbox.map('map', 'mapbox.emerald')
        .setView([40.73, -74.0], 13);
@@ -129,7 +122,6 @@ $('.question').on ('click', 'label', function() {
 	$(this).find('input[type=checkbox]').attr('checked','checked');
 });	
 
-
 	app.displayResults = function(res) {
 		// $('#results').empty();
 		var results = res.results;
@@ -138,7 +130,6 @@ $('.question').on ('click', 'label', function() {
 			noResults.text('Sorry, we couldn\'t find any results in your area. Try expanding your search.').addClass('sorry');
 			$('#results').append(noResults);
 			app.applyMasonry();
-			// console.log(noResults);
 		} else {
 			// loop over results array to get & display info
 			$.each(results, function(index, value) {
@@ -171,11 +162,10 @@ app.applyMasonry = function (){
 	}, 1000);
 };
 
-
 app.displayEverything = function (){
 	app.displayResults(app.MuseumInfo); 
 	app.displayResults(app.EventsInfo);
-
+}
 
 $(function () {
 	app.init();
