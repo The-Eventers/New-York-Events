@@ -347,8 +347,7 @@ label.datepicker {
   border-bottom: 2px solid #E5EFEC;
   position: fixed;
   top: 0;
-  z-index: 5;
-  position: relative; }
+  z-index: 5; }
 
 .myevents svg {
   width: 7%;
@@ -395,8 +394,8 @@ p.logo {
   -webkit-align-self: flex-end;
       -ms-flex-item-align: end;
           align-self: flex-end;
-  -webkit-transition: all 0.6s ease;
-          transition: all 0.6s ease; }
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease; }
 
 .myevents p:hover a {
   color: #F7FCFA;
@@ -479,8 +478,7 @@ p.logo {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  position: relative;
-  top: 8.5vh; }
+  margin-top: 14vh; }
 
 /*Form Styles*/
 .options-results {
@@ -497,16 +495,17 @@ p.logo {
 input.datepicker-bottom {
   font-size: 2rem;
   border: 1px solid #A14FC4;
-  margin: 0.5%;
+  margin-right: 0.5%;
   padding: 1.2% 1%; }
 
 label.datepicker-bottom {
-  position: relative; }
+  position: relative;
+  padding: 0; }
 
 .datepicker-bottom .fa-chevron-down {
   position: absolute;
-  top: 3px;
-  right: 10%;
+  top: 5px;
+  right: 9%;
   color: #000;
   font-size: 2rem; }
 
@@ -538,7 +537,7 @@ label.datepicker-bottom {
   font-size: 1.5rem;
   font-family: Montserrat;
   text-transform: uppercase;
-  padding: 1% 2%; }
+  padding: 1% 1.5%; }
 
 .question label i {
   margin: -1%; }
@@ -577,6 +576,11 @@ input[type=submit].submit {
 
 /*Results Styles*/
 #results {
+  width: 100%;
+  float: left; }
+
+.result-container {
+  width: 48%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -584,34 +588,27 @@ input[type=submit].submit {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  width: 100%;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
-          justify-content: space-between; }
+          justify-content: space-between;
+  padding: 2%;
+  margin: 1%;
+  background: #F7FCFA;
+  border: 1px solid #E5EfEc;
+  float: left; }
+
+.result-container:hover {
+  background: #E5EFEC; }
 
 .sorry {
   font-family: Montserrat;
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: 300;
   color: #1A4C50;
   text-align: center;
   padding-top: 5%;
   line-height: 1.5; }
-
-.result-container {
-  width: 49%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-  padding: 2%;
-  background: #F7FCFA;
-  margin-bottom: 2%;
-  border: 1px solid #E5EfEc; }
 
 p.title, p.venue, p.address, p.neighborhood {
   width: 100%; }
@@ -620,19 +617,19 @@ p.venue, p.address, p.neighborhood {
   margin: 0; }
 
 p.title {
-  font-size: 1.8rem;
+  font-size: 18px;
   text-transform: uppercase;
   letter-spacing: 1px; }
 
 p.venue, p.address, p.neighborhood {
-  font-size: 1.5rem;
+  font-size: 15px;
   font-family: Oswald, sans-serif;
   text-transform: uppercase;
   color: #1A4C50;
   font-weight: 300; }
 
 p.description {
-  font-size: 1.4rem;
+  font-size: 14px;
   line-height: 1.5;
   font-weight: 300; }
 
@@ -654,6 +651,10 @@ p.save {
   text-transform: uppercase;
   font-weight: 300;
   margin: 0; }
+
+p.save:hover {
+  cursor: pointer;
+  color: #A14FC4; }
 
 /*Footer Styles*/
 footer {

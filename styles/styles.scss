@@ -139,7 +139,7 @@ label.datepicker {
 }
 
 .fa-chevron-down:hover {
-	cursor:pointer;
+	cursor: pointer;
 }
 
 .date-submit {
@@ -159,7 +159,7 @@ label.datepicker {
 /* Date picker */
 .ui-datepicker {
   background:#F7FCFA;
-  border: 1px solid #D6C943;;
+  border: 1px solid #D6C943;
   width: 223px;
   border-radius: 3px;
   height: auto;
@@ -200,9 +200,11 @@ label.datepicker {
   float:right;
   color: $offwhite;
 }
+
 .ui-datepicker-next a, .ui-datepicker-prev {
   color: $offwhite;
 } 
+
 .ui-datepicker a {
 	cursor:pointer;
 	color: black;
@@ -250,7 +252,6 @@ label.datepicker {
 	position: fixed;
 	top: 0;
 	z-index: 5;
-	position: relative;
 }
 
 .myevents svg {
@@ -295,7 +296,7 @@ p.logo {
 	padding: 1.5% 2.5%;
 	border-radius: 3px;
 	align-self: flex-end;
-	transition: all 0.6s ease;
+	transition: all 0.3s ease;
 }
 
 .myevents p:hover a {
@@ -364,8 +365,7 @@ p.logo {
 .form-section {
 	display: flex;
 	flex-wrap: wrap;
-	position: relative;
-	top: 8.5vh;
+	margin-top: 14vh;
 }
 /*Form Styles*/
 
@@ -379,18 +379,19 @@ p.logo {
 input.datepicker-bottom {
 	font-size: 2rem;
 	border: 1px solid $purple;
-	margin: 0.5%;
+	margin-right: 0.5%;
 	padding: 1.2% 1%;
 }
 
 label.datepicker-bottom {
 	position: relative;
+	padding: 0;
 }
 
 .datepicker-bottom .fa-chevron-down {
 	position: absolute;
-	top: 3px;
-	right: 10%;
+	top: 5px;
+	right: 9%;
 	color: #000;
 	font-size: 2rem;
 }
@@ -423,7 +424,7 @@ label.datepicker-bottom {
 	font-size: 1.5rem;
 	font-family: $bodyfont;
 	text-transform: uppercase;
-	padding: 1% 2%;
+	padding: 1% 1.5%;
 }
 
 .question label i {
@@ -466,31 +467,37 @@ input[type=submit].submit{
 /*Results Styles*/
 
 #results {
+	// display: flex;
+	// flex-wrap: wrap;
+	width: 100%;
+	// justify-content: space-between;
+	float:left;
+}
+
+.result-container {
+	width: 48%;
 	display: flex;
 	flex-wrap: wrap;
-	width: 100%;
 	justify-content: space-between;
+	padding: 2%;
+	margin: 1%;
+	background: $offwhite;
+	border: 1px solid #E5EfEc;
+	float:left;
+}
+
+.result-container:hover {
+	background: #E5EFEC;
 }
 
 .sorry {
 	font-family: $bodyfont;
-	font-size: 2rem;
+	font-size: 20px;
 	font-weight: 300;
 	color: $darkgreen;
 	text-align: center;
 	padding-top: 5%;
 	line-height: 1.5;
-}
-
-.result-container {
-	width: 49%;
-	display: flex;
-	flex-wrap: wrap;
-	padding: 2%;
-	background: $offwhite;
-	margin-bottom: 2%;
-	border: 1px solid #E5EfEc;
-
 }
 
 p.title, p.venue, p.address, p.neighborhood {
@@ -502,13 +509,13 @@ p.venue, p.address, p.neighborhood {
 }
 
 p.title {
-	font-size: 1.8rem;
+	font-size: 18px;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 }
 
 p.venue, p.address, p.neighborhood {
-	font-size: 1.5rem;
+	font-size: 15px;
 	font-family: $headingfont;
 	text-transform: uppercase;
 	color: $darkgreen;
@@ -517,7 +524,7 @@ p.venue, p.address, p.neighborhood {
 
 
 p.description {
-	font-size: 1.4rem;
+	font-size: 14px;
 	line-height: 1.5;
 	font-weight: 300;
 }
@@ -535,6 +542,11 @@ p.save {
 	text-transform: uppercase;
 	font-weight: 300;
 	margin: 0;
+}
+
+p.save:hover {
+	cursor: pointer;
+	color: $purple;
 }
 
 /*Footer Styles*/

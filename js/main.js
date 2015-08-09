@@ -17,15 +17,22 @@ app.category = '';
 
 
 app.init = function () {
+	$('.start-date').on('change', function() {
+		$('.start-date-bottom').val($(this).val());
+	});
+	$('.end-date').on('change', function() {
+		$('.end-date-bottom').val($(this).val());
+	});
 	$('.date-submit').on('click', function (e) {
 		e.preventDefault();
 		$('section.hide').removeClass('hide');
 		$('.form-section.hide').removeClass('hide');
 		$('.myevents.hide').removeClass('hide');
 		$('header').addClass('hide');
-		$('#start-date-bottom').attr('placeholder', app.startDate);
-		// $('#end-date-bottom').attr('placeholder', app.endDate); Push user input dates to bottom form inputs
-	});
+		// $('.end-date-bottom').attr('placeholder', app.endDate); Push user input dates to bottom form inputs
+		});
+
+
 	$('.datepicker').each(function () {
     	$(this).datepicker();
     });
@@ -33,16 +40,13 @@ app.init = function () {
 		e.preventDefault();
 		$('.neighborhood-question input[type=checkbox]:checked').each(function(){
 		    app.neighborhood = app.neighborhood + ' ' + $(this).val();
-		    // console.log(app.neighborhood);
 		  });
 		$('.category-question input[type=checkbox]:checked').each(function() {
 			app.category = app.category + ' ' + $(this).val();
-			// console.log(app.category);
 		});
-		app.startDate = $('.start-date').datepicker('getDate');
-		app.endDate = $('.end-date').datepicker('getDate');
+		app.startDate = $('.start-date-bottom').datepicker('getDate');
+		app.endDate = $('.end-date-bottom').datepicker('getDate');
 		app.dateRange = moment(app.startDate).format('YYYY-MM-DD') + ':' + moment(app.endDate).format('YYYY-MM-DD');
-		// console.log(dateRange);
 		app.getInfo(app.dateRange, app.category, app.neighborhood);
 	});
 };
@@ -96,9 +100,7 @@ $('#Museums').on ('click', function() {
 	      'date_range': app.dateRange
 	  },
 	  	success: function (museumResults) {
-			console.log(museumResults);
 			app.MuseumInfo = museumResults;
-			// app.displayResults(app.MuseumInfo);
 		}
 	});
 });
@@ -116,7 +118,6 @@ $('#Events').on ('click', function() {
 	      'date_range': app.dateRange
 	  },
 	  	success: function (eventResults) {
-			console.log(eventResults);
 			app.EventsInfo = eventResults;
 		}
 	});
@@ -136,15 +137,14 @@ $('.question').on ('click', 'label', function() {
 	app.displayResults = function(res) {
 		// $('#results').empty();
 		var results = res.results;
-		console.log(results);
 		if (results.length===0) {
 			var noResults = $('<h3>');
 			noResults.text('Sorry, we couldn\'t find any results in your area. Try expanding your search.').addClass('sorry');
 			$('#results').append(noResults);
+			app.applyMasonry();
 			// console.log(noResults);
 		} else {
 			// loop over results array to get & display info
-			console.log("entering prining loop");
 			$.each(results, function(index, value) {
 				console.log(index, value);
 				var resultContainer = $('<div>').addClass('result-container');
@@ -154,14 +154,26 @@ $('.question').on ('click', 'label', function() {
 				var neighborhood = $('<p>').text(value.neighborhood).addClass('neighborhood');
 				var description = $('<p>').html(value.web_description).addClass('description');
 				var saveContainer = $('<div>').addClass('save-container');
-				var save = $('<p>').text('Save to My Events').addClass('save');
+				var save = $('<p>').text('Save to My Activities').addClass('save');
 				saveContainer.append(save);
 				resultContainer.append(title, venue, address, neighborhood, description, saveContainer);
 				$('#results').append(resultContainer);
+				app.applyMasonry();
 				L.marker([value.geocode_latitude,value.geocode_longitude]).addTo(map).bindPopup(value.event_name + ":" + "<br>" + value.street_address);
 			});
 		}
+
 	};
+
+app.applyMasonry = function (){
+	setTimeout(function() {
+		$('#results').masonry({
+			itemSelector:'.result-container',
+			columnWidth: '.result-container'
+		});
+		console.log('working');
+	}, 1000);
+};
 
 
 app.displayEverything = function (){
@@ -175,8 +187,6 @@ $(function () {
 });
 
 
-//add date values to bottom form
-//masonry
 //add save to my events
 //printable
 //show more button (load/ more results)
