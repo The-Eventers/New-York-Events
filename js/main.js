@@ -17,31 +17,49 @@ app.category = '';
 
 
 app.init = function () {
+	$('.start-date').on('change', function() {
+		$('.start-date-bottom').val($(this).val());
+	});
+
+	$('.end-date').on('change', function() {
+		$('.end-date-bottom').val($(this).val());
+	});
+
 	$('.date-submit').on('click', function (e) {
 		e.preventDefault();
 		$('section.hide').removeClass('hide');
-		$('header').addClass('slideOutUp');
-	});
+		$('.form-section.hide').removeClass('hide');
+		$('.myevents.hide').removeClass('hide');
+		$('header').addClass('hide');
+		});
+
 	$('.datepicker').each(function () {
     	$(this).datepicker();
     });
+
 	$('form').on('submit', function (e) {
 		e.preventDefault();
 		$('.neighborhood-question input[type=checkbox]:checked').each(function(){
 		    app.neighborhood = app.neighborhood + ' ' + $(this).val();
-		    // console.log(app.neighborhood);
 		  });
 		$('.category-question input[type=checkbox]:checked').each(function() {
 			app.category = app.category + ' ' + $(this).val();
-			// console.log(app.category);
 		});
-		var startDate = $('.start-date').datepicker('getDate');
-		var endDate = $('.end-date').datepicker('getDate');
-		app.dateRange = moment(startDate).format('YYYY-MM-DD') + ':' + moment(endDate).format('YYYY-MM-DD');
-		// console.log(dateRange);
+		app.startDate = $('.start-date-bottom').datepicker('getDate');
+		app.endDate = $('.end-date-bottom').datepicker('getDate');
+		app.dateRange = moment(app.startDate).format('YYYY-MM-DD') + ':' + moment(app.endDate).format('YYYY-MM-DD');
 		app.getInfo(app.dateRange, app.category, app.neighborhood);
 	});
 };
+
+$('.show-modal').on ('click', function (e) {
+	e.preventDefault();
+	$('.modal').removeClass('hide');
+});
+
+$('.events i').on('click', function () {
+	$('.modal').addClass('hide');
+});
 
 L.mapbox.accessToken = 'pk.eyJ1Ijoiam9hbm5hc3RlY2V3aWN6IiwiYSI6IjIzNmNhNjJmNzgxMjhkMzI3M2ZhYjU2Yjk1YmNlZWZmIn0.rA-ceyz6zzzlwCw0Hv0CMQ';
     var map = L.mapbox.map('map', 'mapbox.emerald')
@@ -61,8 +79,10 @@ app.getInfo = function(dateRange, category, neighborhood) {
 	      'date_range': app.dateRange
 	  },
 	  	success: function (res) {
-	  		// console.log(res);
+	  		console.log(res);
 			app.displayResults(res);
+			app.displayResults(app.MuseumInfo);
+			app.displayResults(app.EventsInfo);
 		}
 	});
 };
@@ -75,13 +95,12 @@ $('#Museums').on ('click', function() {
 	    data: {
 	      'api-key': 'e6a25b3f20881562c56e3247ecd6335d:3:72623857',
 	      'facets': 1,
-	      'filters': 'subcategory: Museums and Sites',
+	      'filters': 'subcategory: Museums',
 	      'limit': 20,
 	      'date_range': app.dateRange
 	  },
 	  	success: function (museumResults) {
-			console.log(museumResults);
-			app.displayResults(museumResults);
+			app.MuseumInfo = museumResults;
 		}
 	});
 });
@@ -99,27 +118,7 @@ $('#Events').on ('click', function() {
 	      'date_range': app.dateRange
 	  },
 	  	success: function (eventResults) {
-			console.log(eventResults);
-			app.displayResults(eventResults);
-		}
-	});
-});
-
-$('#Tours').on ('click', function() {
-	$.ajax({
-		url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?',
-		type: 'GET',
-		dataType: 'jsonp',
-	    data: {
-	      'api-key': 'e6a25b3f20881562c56e3247ecd6335d:3:72623857',
-	      'facets': 1,
-	      'filters': 'subcategory: Walking Tours',
-	      'limit': 20,
-	      'date_range': app.dateRange
-	  },
-	  	success: function (toursResults) {
-			console.log(toursResults);
-			app.displayResults(toursResults);
+			app.EventsInfo = eventResults;
 		}
 	});
 });
@@ -131,35 +130,51 @@ $('.question').on ('click', 'label', function() {
 });	
 
 
-app.displayResults = function(res) {
-	$('#results').empty();
-	var results = res.results;
-	// console.log(results);
-	if (results.length===0) {
-		var noResults = $('<h3>');
-		noResults.text('Sorry, we couldn\'t find any results in your area. Try expanding your search.').addClass('sorry');
-		$('#results').append(noResults);
-		// console.log(noResults);
-	} else {
-		// loop over results array to get & display info
-
-		$.each(results, function(index, value) {
-			console.log(index, value);
-			var resultContainer = $('<div>').addClass('result-container');
-			var title = $('<p>').text(value.event_name).addClass('title');
-			var venue = $('<p>').text(value.venue_name).addClass('venue');
-			var address = $('<p>').text(value.street_address).addClass('address');
-			var neighborhood = $('<p>').text(value.neighborhood).addClass('neighborhood');
-			var description = $('<p>').html(value.web_description).addClass('description');
-			resultContainer.append(title, venue, address, neighborhood, description);
-			$('#results').append(resultContainer);
-			L.marker([value.geocode_latitude,value.geocode_longitude]).addTo(map).bindPopup(value.event_name + ":" + "<br>" + value.street_address);
-		});
-
+	app.displayResults = function(res) {
+		// $('#results').empty();
+		var results = res.results;
+		if (results.length===0) {
+			var noResults = $('<h3>');
+			noResults.text('Sorry, we couldn\'t find any results in your area. Try expanding your search.').addClass('sorry');
+			$('#results').append(noResults);
+			app.applyMasonry();
+			// console.log(noResults);
+		} else {
+			// loop over results array to get & display info
+			$.each(results, function(index, value) {
+				console.log(index, value);
+				var resultContainer = $('<div>').addClass('result-container');
+				var title = $('<p>').text(value.event_name).addClass('title');
+				var venue = $('<p>').text(value.venue_name).addClass('venue');
+				var address = $('<p>').text(value.street_address).addClass('address');
+				var neighborhood = $('<p>').text(value.neighborhood).addClass('neighborhood');
+				var description = $('<p>').html(value.web_description).addClass('description');
+				var saveContainer = $('<div>').addClass('save-container');
+				var save = $('<p>').text('Save to My Activities').addClass('save');
+				saveContainer.append(save);
+				resultContainer.append(title, venue, address, neighborhood, description, saveContainer);
+				$('#results').append(resultContainer);
+				app.applyMasonry();
+				L.marker([value.geocode_latitude,value.geocode_longitude]).addTo(map).bindPopup(value.event_name + ":" + "<br>" + value.street_address);
+			});
+		}
 
 	};
 
+app.applyMasonry = function (){
+	setTimeout(function() {
+		$('#results').masonry({
+			itemSelector:'.result-container',
+			columnWidth: '.result-container'
+		});
+		console.log('working');
+	}, 1000);
 };
+
+
+app.displayEverything = function (){
+	app.displayResults(app.MuseumInfo); 
+	app.displayResults(app.EventsInfo);
 
 
 $(function () {
@@ -167,27 +182,12 @@ $(function () {
 });
 
 
-//if the category clicked on is spare times 
-	//  if the value is 'Museums'
-			//display results with a subcategory of 'Museums and Sites'
-	//else if the value is 'Tours'
-			//display results with a subcategory of 'Walking Tours'
-//else
-
-
-
-//svg
-//style calendars
-//add date inputs to bottom form
-//masonry
-//add my events bar
-//modal
-//animation slide up
 //add save to my events
 //printable
-//credit the svg person
 //show more button (load/ more results)
 //slider images possibly?
+//animation slide up
+//promises?
 
 
 
