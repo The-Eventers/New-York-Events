@@ -25,20 +25,30 @@ app.init = function () {
 		$('.end-date-bottom').val($(this).val());
 	});
 
+
 	$('.date-submit').on('click', function (e) {
 		e.preventDefault();
-		$('section.hide').removeClass('hide');
-		$('.form-section.hide').removeClass('hide');
-		$('.myevents.hide').removeClass('hide');
-		$('header').addClass('hide');
+		console.log(app);
+		if($('.start-date').val() === "" || $('.end-date').val() === "" ) {
+			console.log('hello')
+			alert("Sorry please enter a date to complete the request");
+		} else {
+			$('section.hide').removeClass('hide');
+			$('.form-section.hide').removeClass('hide');
+			$('.myevents.hide').removeClass('hide');
+			$('header').addClass('hide');
+		}	
 		});
+	
 
 	$('.datepicker').each(function () {
     	$(this).datepicker();
+
     });
 
+
 	$('form').on('submit', function (e) {
-		e.preventDefault();
+		e.preventDefault(); 
 		$('.neighborhood-question input[type=checkbox]:checked').each(function(){
 		    app.neighborhood = app.neighborhood + ' ' + $(this).val();
 		  });
@@ -176,6 +186,7 @@ app.displayEverything = function (){
 	app.displayResults(app.MuseumInfo); 
 	app.displayResults(app.EventsInfo);
 
+}
 
 $(function () {
 	app.init();
