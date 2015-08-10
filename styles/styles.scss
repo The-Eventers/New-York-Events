@@ -93,6 +93,10 @@ header svg {
 	padding: 1.5% 1.5%;
 }
 
+.header-content input[type=text]:hover {
+	cursor:pointer;
+}
+
 label.datepicker {
 	position: relative;
 }
@@ -154,6 +158,12 @@ label.datepicker {
     font-weight: 400;
     letter-spacing: 2px;
     margin: 0 0.5%;
+    transition: all 0.3s ease;
+}
+
+.date-submit:hover {
+	background: darken($lightgreen, 15%);
+	border-bottom: 3px solid #D5D2B6;
 }
 
 /* Date picker */
@@ -232,12 +242,12 @@ label.datepicker {
 
 .ui-datepicker-today {
 	border-radius: 3px;
-    background: $lightgreen !important;
+  	border: 1px solid $lightgreen !important;
 }
 
 .ui-datepicker-current-day {
-    border: 1px solid $lightgreen !important;
-    border-radius: 3px;
+	 background: $lightgreen !important;
+   	 border-radius: 3px;
 }
 
 /*Styles for Form/Map Section*/
@@ -292,6 +302,7 @@ p.logo {
 	font-family: $headingfont;
 	color: $offwhite;
 	background: $lightgreen;
+	border-bottom: 3px solid #EDEACB;
 	text-decoration: none;
 	padding: 1.5% 2.5%;
 	border-radius: 3px;
@@ -300,8 +311,8 @@ p.logo {
 }
 
 .myevents p:hover a {
-	color: $offwhite;
-	background: $purple;
+	background: darken($lightgreen, 15%);
+	border-bottom: 3px solid #D5D2B6;
 }
 
 .myevents p i {
@@ -315,7 +326,7 @@ p.logo {
 
 .myevents p i:hover {
 	color: $offwhite;
-	background: $darkgreen;
+	background: darken($lightgreen, 15%);
 }
 
 .modal {
@@ -365,33 +376,62 @@ p.logo {
 .form-section {
 	display: flex;
 	flex-wrap: wrap;
-	margin-top: 14vh;
+	margin-top: 16vh;
 }
 /*Form Styles*/
 
 .options-results {
 	width: 100%;
-	height: 92vh;
+	height: 84vh;
 	display: flex;
 	flex-wrap: wrap;
 }
 
-input.datepicker-bottom {
-	font-size: 2rem;
-	border: 1px solid $purple;
-	margin-right: 0.5%;
-	padding: 1.2% 1%;
+.bottom-dates {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+	margin-right: 2%;
+	padding-right: 2%;
+
+
 }
+
+.bottom-dates p {
+	width: 25%;
+	margin: 0;
+	font-size: 2rem;
+	color: $darkgreen;
+	padding-bottom: 1%;
+}
+
+#date3, #date4 {
+	padding: 5%;
+	font-size: 2rem;
+	border: none;
+	border: 1px solid $purple;
+	border-radius: 3px;
+}
+
+// input.datepicker-bottom {
+// 	font-size: 2rem;
+// 	border: 1px solid $purple;
+// 	padding: 1.2% 1%;
+// }
 
 label.datepicker-bottom {
 	position: relative;
 	padding: 0;
+	width: 33%;
 }
-
+input.datepicker-bottom:hover {
+	cursor:pointer;
+}
 .datepicker-bottom .fa-chevron-down {
 	position: absolute;
-	top: 5px;
-	right: 9%;
+	top: 20px;
+	right: 1px;
 	color: #000;
 	font-size: 2rem;
 }
@@ -402,12 +442,6 @@ label.datepicker-bottom {
 	flex-wrap: wrap;
 	padding: 2% 0 3%;
 	border-bottom: 1px solid $purple;
-	p {
-		font-size: 2rem;
-		width: 100%;
-		color: $darkgreen;
-		padding-bottom: 1%;
-	}
 }
 
 
@@ -418,6 +452,13 @@ label.datepicker-bottom {
 .questions{
 	width: 60%;
 	padding: 1% 1.5%;
+}
+
+.question p {
+	font-size: 2rem;
+	width: 100%;
+	color: $darkgreen;
+	padding-bottom: 1%;
 }
 
 .questions label {
@@ -443,7 +484,7 @@ input[type=submit].submit{
 	background: $purple;
 	color: $offwhite;
 	border: none;
-	border-bottom: 3px solid #55236A;
+	border-bottom: 3px solid #BF83D9;
 	padding: 0.5% 4%;
 	border-radius: 3px;
 	font-family: $headingfont;
@@ -451,6 +492,10 @@ input[type=submit].submit{
 	letter-spacing: 2px;
 	margin: 2% 0;
 	text-transform: uppercase;
+}
+
+input[type=submit].submit:hover {
+	background: #8845a4;
 }
 
 
@@ -467,10 +512,7 @@ input[type=submit].submit{
 /*Results Styles*/
 
 #results {
-	// display: flex;
-	// flex-wrap: wrap;
 	width: 100%;
-	// justify-content: space-between;
 	float:left;
 }
 
@@ -571,6 +613,86 @@ footer p {
 	text-align: center;
 	text-transform: uppercase;
 	font-weight: 300;
+}
+
+/*Media Queries*/
+
+@media (max-width: 1000px) {
+
+.bottom-dates p {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+label.datepicker-bottom {
+	width: 100%;
+}
+
+#date3, #date4 {
+	padding: 1.5% 1.5%; 
+	width: 100%
+}
+
+.datepicker-bottom .fa-chevron-down {
+	top: 15px;
+	right: 5%;
+}
+
+}
+
+@media (max-width: 890px) {
+
+.options-results {
+	display: inline-block;
+	width: 100%;
+}
+
+
+#results {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 100%;
+}
+
+#map {
+	width: 100%;
+	height: 40vh;
+}
+
+.questions {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+}
+
+@media (max-width: 480px) {
+
+.result-container {
+	width: 95%;
+	margin: 1.5% 2.5%; 
+}
+
+.myevents svg {
+	top: 0px;
+}
+
+.myevents {
+	padding: 1%
+}
+
+p.logo {
+	margin: 0 8%;
+}
+
+p.my-activities {
+	width: 33%;
+	margin: 0;
+}
+
+
 }
 
 
