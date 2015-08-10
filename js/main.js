@@ -167,7 +167,7 @@ $('.question').on ('click', 'label', function() {
 			});
 		}
 		$('.save').on('click', function () {
-			$('.saved-activities').append(app.resultContainer);
+			$('.saved-activities').append($(this).parent.parent);
 		});
 
 	};
